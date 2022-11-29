@@ -1,0 +1,37 @@
+{% extends "todos/base.html" %}
+
+{% block page_header %}
+  <h1>Groups:&emsp;&emsp;
+  	<small>
+  		<a class="btn btn-lg btn-primary" href="{% url 'todos:new_grouping' %}" role="button">
+  			Add a new group</a>
+  	</small>
+  </h1>
+{% endblock page_header%}
+
+{% block content %}
+
+{% for grouping in groupings %}
+  <div class="card md-3">
+    <h4 class="card-header">
+      {{ grouping.date_added|date:'M d, Y H:i' }}&emsp;
+      <small>
+        <a class="btn btn-lg btn-primary" role="button" 
+        	href="{% url 'todos:edit_grouping' grouping.id %}">
+        	Edit it
+        </a>
+      </small>&emsp;
+      <small>
+      	<a class="btn btn-lg btn-primary" role="button" 
+      		href="{% url 'todos:grouping' grouping.id %}">Enter it</a>
+      </small>
+    </h4>
+    <div class="card-body">
+      <h5>{{ grouping.text|linebreaks }}</h5>
+    </div>
+  </div>
+{% empty %}
+	<h3>No groups have been added yet.</h3>
+{% endfor %}
+
+{% endblock content %}

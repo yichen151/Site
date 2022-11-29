@@ -1,0 +1,32 @@
+{% extends 'todos/base.html' %}
+
+{% block page_header %}
+  <h3>{{ grouping }}:&emsp;&emsp;
+  	<small>
+  		<a class="btn btn-lg btn-primary" role="button" href="{% url 'todos:new_todo' grouping.id %}">
+  	Add new todo</a>
+  	</small>
+  </h3>
+{% endblock page_header %}
+
+{% block content %}
+
+{% for todo in todos %}
+  <div class="card md-3">
+    <h4 class="card-header">
+      {{ todo.date_added|date:'M d, Y H:i' }}&emsp;
+      <small>({{ todo.complete }})&emsp;</small>
+      <small>
+        <a class="btn btn-lg btn-primary" role="button" href="{% url 'todos:edit_todo' todo.id %}">
+        edit it</a>
+      </small>
+    </h4>
+    <div class="card-body">
+      <h5>{{ todo.text|linebreaks }}</h5>
+    </div>
+  </div>
+{% empty %}
+  <h3>There are no todos for this group yet.</h3>
+{% endfor %}
+
+{% endblock content %}
